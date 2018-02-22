@@ -36,6 +36,7 @@ int main()
 	ssize_t bytes;
 	void *data;
 	size_t len;
+	char msg[100];
 	socklen_t fromlen;
 	fromlen = sizeof(recv_client);
 	//-------------------------------------------socket creation and binding
@@ -100,8 +101,8 @@ int main()
 			{
                
 				//reading from socket
-				bytes = recvfrom(s, data, len, 0, (struct sockaddr*)&recv_client, &fromlen);
-				cout<< data << endl;
+				bytes = recvfrom(s, msg, sizeof(msg), 0, (struct sockaddr*)&recv_client, &fromlen);
+				cout<< msg<< endl;
 				socket_data = 1;
 				break;
 

@@ -28,13 +28,18 @@ int main()
 	void *data;
 	size_t len;
 	ssize_t bytes;
-	string msg="sent";
-	data = &msg;
+	char msg[100];
+	string text="rebel berry";
+	//data = &msg;
+	strcpy(msg, text.c_str());
 	len = sizeof msg;
+
 	serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(port);
 
-	bytes = sendto(s, data, len, 0, (struct sockaddr*)&serv_addr, sizeof serv_addr);
+	bytes = sendto(s, msg, len, 0, (struct sockaddr*)&serv_addr, sizeof serv_addr);
+
+
 
 }
 	
