@@ -19,4 +19,5 @@ using namespace std;
 int main()
 {
   c[1].input_reader();
+  c[1].config_reader();
 }
