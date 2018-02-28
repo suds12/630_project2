@@ -27,56 +27,59 @@ public:
 	int port;
 	int next_id;
 	int prev_id;
+	int start_time[10];
+	int msg[10];
 
-	int reader()
+	int input_reader()
 	{
 		int i=0;
 		fin[1].open("input.txt");
 		string line;
 		string t,t1;
 		string full_time[10];
+		string sec[10];
+		string min[10];
+		int mins[10],secs[10];
 		string message[10];
-		while (getline(fin[1], line))
+		while (getline(fin[1], line))											//Read entire line from file
     {
         istringstream ss(line);
 
-				//cout<<line;
 
-        string minute, msg, sec,min;
+        string minute, msg;
 
-        //ss >> minute >> sec >> msg;
-        //cout << minute << ":"<<endl;
-				//-----------------
-				//cout<<line<<endl;
-				//ss>>minute;
-				//cout<<minute<<endl;
-				//char const *read = line.c_str();
-				//cerr<<read<<endl;
-				//cout<<"start"<<endl;
+
 				char *cstr = new char[line.length() + 1];
 				strcpy(cstr, line.c_str());
 
 				char *token = std::strtok(cstr, "\t");
-				//cout<<token<<endl;
 				full_time[i]=token;
 				//cout<<hour[i]<<endl;
-    		while (token != NULL)
+    		while (token != NULL)												//Read splitting message and full time
 				{
-        	//std::cout << token << '\n';
-					//cout<<"gap"<<endl;
 					message[i] = token;
-					//cout<<message[i]<<endl;
         	token = std::strtok(NULL, "\t");
-					//std::cout << "done" << '\n';
-					//message[i] += token;
-
     		}
+				//----------------
+				char *temp = new char[full_time[i].length() + 1];
+				strcpy(temp,full_time[i].c_str());
+				char *token1 = std::strtok(temp, ":");
+				min[i]=token1;
+				while (token1 != NULL)
+				{
+					sec[i] = token1;
+        	token1 = std::strtok(NULL, ":");							//splitting mins and secs from full time
+    		}
+				//--------------------
+				mins[i]=atoi(min[i].c_str());
+				secs[i]=atoi(sec[i].c_str());
+				start_time[i]=(mins[i]*60)+secs[i];								//Calculating start time
 				i++;
 
     }
 		for(i=0;i<4;i++)
 		{
-			cout<<full_time[i]<<" "<<message[i]<<endl;
+			cout<<full_time[i]<<" "<<message[i]<<" "<<start_time[i]<<endl;
 		}
 		return 0;
 	}

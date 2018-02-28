@@ -18,5 +18,5 @@ using namespace std;
 
 int main()
 {
-  c[1].reader();
+  c[1].input_reader();
 }
