@@ -13,7 +13,7 @@
 #include <chrono>
 #include <thread>
 #define MAX_MESSAGE_LEN 65536
-#define filename "config_"
+
 
 using namespace std;
 using namespace std::this_thread; // sleep_for, sleep_until
@@ -21,6 +21,7 @@ using namespace std::chrono; // nanoseconds, system_clock, seconds
 typedef map<string,struct sockaddr_in> channel_type;
 struct sockaddr_in sender;
 struct sockaddr_in reciever;
+struct sockaddr_in recv_client;
 
 ifstream fin[50];
 ofstream fout[5];
@@ -33,12 +34,12 @@ public:
 	int next_id;
 	int prev_id;
 	int message_time[10];
-	int msg[10];
+	string msg[10];
 	int join_time;
 	int leave_time;
 	int range;
 	int uid;
-	int s;
+	//int s;
 
 	int input_reader()
 	{
@@ -54,7 +55,7 @@ public:
 		while (getline(fin[0], line))											//Read entire line from file
     {
         istringstream ss(line);
-        string minute, msg;
+        string minute;
 
 				char *cstr = new char[line.length() + 1];
 				strcpy(cstr, line.c_str());
@@ -80,12 +81,13 @@ public:
 				mins[i]=atoi(min[i].c_str());
 				secs[i]=atoi(sec[i].c_str());
 				message_time[i]=(mins[i]*60)+secs[i];								//Calculating start time
+				msg[i]=message[i];
 				i++;
 
     }
 		for(i=0;i<4;i++)
 		{
-			//cout<<full_time[i]<<" "<<message[i]<<" "<<message_time[i]<<endl;
+			cout<<full_time[i]<<" "<<msg[i]<<" "<<message_time[i]<<endl;
 		}
 		return 0;
 	}
@@ -205,7 +207,7 @@ public:
 	{
 		int i,j;
 		//sleep_for(seconds(10));
-		sleep_until(system_clock::now() + seconds(join_time));
+		//sleep_until(system_clock::now() + seconds(join_time));
 		cout<<"hi "<<uid<<endl;
 	}
 	//**************************************************************************
@@ -217,9 +219,96 @@ public:
 		initialize();
 	}
 	//**************************************************************************
+
 	void send_msg()
 	{
+		int i,rc,s;
+		int temp=3452;
+		char message[1000];
+		size_t len;
+		ssize_t bytes;
+
+		strcpy(message, msg[1].c_str());
+		len = sizeof message;
 		s = socket(PF_INET, SOCK_DGRAM, 0);
+		if (s < 0)
+		{
+			perror ("socket() failed\n");
+			exit(1);
+		}
+		reciever.sin_family = AF_INET;
+		reciever.sin_port = htons(temp);
+
+		bytes = sendto(s, msg, len, 0, (struct sockaddr*)&reciever, sizeof reciever);
+		cerr<<"done"<<endl;
+
 	}
+
+	//**************************************************************************
+	void recv_msg()
+	{
+		int i,rc,s;
+		int temp=3452;
+		char recv_message[1000];
+		size_t len;
+		ssize_t bytes;
+		socklen_t fromlen;
+		fromlen = sizeof(reciever);
+		s = socket(PF_INET, SOCK_DGRAM, 0);
+		if (s < 0)
+		{
+			perror ("socket() failed\n");
+			exit(1);
+		}
+		reciever.sin_family = AF_INET;
+		reciever.sin_port = htons(temp);
+		reciever.sin_addr.s_addr = INADDR_ANY;
+		int err;
+		err = bind(s, (struct sockaddr*)&reciever, sizeof reciever);
+		if (err < 0)
+		{
+		  perror("bind failed\n");
+		}
+		else
+		{
+		  printf("bound socket\n");
+		}
+		while(1) //server runs for ever
+		{
+		  int rc;
+		  fd_set fds;
+		  FD_ZERO(&fds);
+		  FD_SET(s, &fds);
+
+
+		  rc = select(s+1, &fds, NULL, NULL, NULL);
+		  if (rc < 0)
+		  {
+		    printf("error in select\n");
+		          getchar();
+		  }
+		  else
+		  {
+		    int socket_data = 0;
+		    if (FD_ISSET(s,&fds))
+		    {
+
+		      //reading from socket
+		      bytes = recvfrom(s, recv_message, sizeof(recv_message), 0, (struct sockaddr*)&sender, &fromlen);
+		      cout<< recv_message<< endl;
+		      socket_data = 1;
+		      break;
+
+		    }
+
+		  }
+		}
+
+
+
+
+
+	}
+
 
 }c[50];
