@@ -10,14 +10,19 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<map>
+#include <chrono>
+#include <thread>
 #define MAX_MESSAGE_LEN 65536
+#define filename "config_"
 
 using namespace std;
-
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono; // nanoseconds, system_clock, seconds
 typedef map<string,struct sockaddr_in> channel_type;
-struct sockaddr_in server;
-struct sockaddr_in recv_client;
-ifstream fin[5];
+struct sockaddr_in sender;
+struct sockaddr_in reciever;
+
+ifstream fin[50];
 ofstream fout[5];
 
 class client
@@ -32,11 +37,13 @@ public:
 	int join_time;
 	int leave_time;
 	int range;
+	int uid;
+	int s;
 
 	int input_reader()
 	{
 		int i=0;
-		fin[1].open("input.txt");
+		fin[0].open("input.txt");
 		string line;
 		string t,t1;
 		string full_time[10];
@@ -44,7 +51,7 @@ public:
 		string min[10];
 		int mins[10],secs[10];
 		string message[10];
-		while (getline(fin[1], line))											//Read entire line from file
+		while (getline(fin[0], line))											//Read entire line from file
     {
         istringstream ss(line);
         string minute, msg;
@@ -82,11 +89,11 @@ public:
 		}
 		return 0;
 	}
-
+//**************************************************************************
 	int config_reader()
 	{
 		int i=0,j=0;
-		fin[2].open("config.txt");
+		fin[uid].open("config_"+to_string(uid)+".txt");
 		string temp_range;
 		string temp_port;
 		string temp_join_time;
@@ -105,7 +112,7 @@ public:
 		int temp_leave_hour;
 		int temp_leave_min;
 
-		while (getline(fin[2], line))
+		while (getline(fin[uid], line))
 		{
 			istringstream ss(line);
 			char *cstr = new char[line.length() + 1];
@@ -190,8 +197,29 @@ public:
 		leave_time=(temp_leave_hour*60)+temp_leave_min;
 
 
-		cout<<range<<" "<<port<<" "<<join_time<<" "<<leave_time<<endl;
+		//cout<<range<<" "<<port<<" "<<join_time<<" "<<leave_time<<endl;
 		return 0;
+	}
+	//**************************************************************************
+	void initialize()
+	{
+		int i,j;
+		//sleep_for(seconds(10));
+		sleep_until(system_clock::now() + seconds(join_time));
+		cout<<"hi "<<uid<<endl;
+	}
+	//**************************************************************************
+
+	void accumulate()
+	{
+		input_reader();
+		config_reader();
+		initialize();
+	}
+	//**************************************************************************
+	void send_msg()
+	{
+		s = socket(PF_INET, SOCK_DGRAM, 0);
 	}
 
 }c[50];

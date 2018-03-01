@@ -18,6 +18,9 @@ using namespace std;
 
 int main()
 {
-  c[1].input_reader();
-  c[1].config_reader();
+  c[1].uid=1;
+  c[1].accumulate();
+  c[2].uid=2;
+  c[2].accumulate();
+
 }
