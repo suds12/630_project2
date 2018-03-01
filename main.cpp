@@ -22,6 +22,7 @@ int main()
   c[1].accumulate();
   c[2].uid=2;
   c[2].accumulate();
-  c[1].send_msg();
+  c[2].send_msg();
+  c[2].recv_msg();
 
 }
