@@ -20,7 +20,7 @@ struct sockaddr_in recv_client;
 ifstream fin[5];
 ofstream fout[5];
 
-class client
+class client_process
 {
 public:
 	string message;
@@ -88,7 +88,7 @@ public:
 	int config_reader()
 	{
 		int i=0,j=0;
-		fin[2].open(config_file.c_str());
+		fin[2].open(config_file);
 		string temp_range;
 		string temp_port;
 		string temp_join_time;
@@ -192,8 +192,10 @@ public:
 		leave_time=(temp_leave_hour*60)+temp_leave_min;
 
 
-		cout<<range<<" "<<port<<" "<<join_time<<" "<<leave_time<<endl;
+		//cout<<range<<" "<<port<<" "<<join_time<<" "<<leave_time<<endl;
 		return 0;
 	}
+
+void socket_creator();
 
 }client;

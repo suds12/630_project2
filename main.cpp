@@ -12,6 +12,7 @@
 #include<map>
 //-------
 #include "reader.cpp"
+#include "communication.cpp"
 #define MAX_MESSAGE_LEN 65536
 
 using namespace std;
@@ -22,4 +23,5 @@ int main(int argc, char** argv)
   client.config_file=argv[2];
   client.input_reader();
   client.config_reader();
+  client.socket_creator();
 }
