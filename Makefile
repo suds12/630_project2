@@ -1,8 +1,7 @@
 
-all: main output
+all: main 
 
 main: main.cpp
-	g++ main.cpp -o output.out -std=c++11
+	g++ -o output.out -std=c++11 main.cpp 
 
-output: output.out
-	./output.out 
+

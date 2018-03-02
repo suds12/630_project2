@@ -11,18 +11,15 @@
 #include<arpa/inet.h>
 #include<map>
 //-------
-#include "node.cpp"
+#include "reader.cpp"
 #define MAX_MESSAGE_LEN 65536
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
-  c[1].uid=1;
-  c[1].accumulate();
-  c[2].uid=2;
-  c[2].accumulate();
-  c[2].send_msg();
-  c[2].recv_msg();
-
+  client.input_file=argv[1];
+  client.config_file=argv[2];
+  client.input_reader();
+  client.config_reader();
 }
