@@ -28,10 +28,11 @@ public:
 	int next_id;
 	int prev_id;
 	int message_time[10];
-	int msg[10];
+	string msg[10];
 	int join_time;
 	int leave_time;
 	int range;
+	int s;
 	string input_file;
 	string config_file;
 
@@ -47,72 +48,75 @@ public:
 		int mins[10],secs[10];
 		string message[10];
 		while (getline(fin[1], line))											//Read entire line from file
-    {
-        istringstream ss(line);
-        string minute, msg;
+		{
+			istringstream ss(line);
+			string minute;
 
-				char *cstr = new char[line.length() + 1];
-				strcpy(cstr, line.c_str());
+			char *cstr = new char[line.length() + 1];
+			strcpy(cstr, line.c_str());
 
-				char *token = std::strtok(cstr, "\t");
-				full_time[i]=token;
+			char *token = strtok(cstr, "\t");
+			full_time[i]=token;
     		while (token != NULL)												//Read splitting message and full time
-				{
-					message[i] = token;
-        	token = std::strtok(NULL, "\t");
+    		{
+    			message[i] = token;
+    			token = strtok(NULL, "\t");
     		}
 				//----------------
-				char *temp = new char[full_time[i].length() + 1];
-				strcpy(temp,full_time[i].c_str());
-				char *token1 = std::strtok(temp, ":");
-				min[i]=token1;
-				while (token1 != NULL)
-				{
-					sec[i] = token1;
-        	token1 = std::strtok(NULL, ":");							//splitting mins and secs from full time
-    		}
+    		char *temp = new char[full_time[i].length() + 1];
+    		strcpy(temp,full_time[i].c_str());
+    		char *token1 = strtok(temp, ":");
+    		min[i]=token1;
+    		while (token1 != NULL)
+    		{
+    			sec[i] = token1;
+        		token1 = strtok(NULL, ":");							//splitting mins and secs from full time
+        	}
 				//--------------------
-				mins[i]=atoi(min[i].c_str());
-				secs[i]=atoi(sec[i].c_str());
-				message_time[i]=(mins[i]*60)+secs[i];								//Calculating start time
-				i++;
+       		mins[i]=atoi(min[i].c_str());
+        	secs[i]=atoi(sec[i].c_str());
+			message_time[i]=(mins[i]*60)+secs[i];								//Calculating start time
+			msg[i]=message[i];
+			i++;
 
-    }
+		}
+
 		for(i=0;i<4;i++)
 		{
 			//cout<<full_time[i]<<" "<<message[i]<<" "<<message_time[i]<<endl;
 		}
+
 		return 0;
 	}
 
-	int config_reader()
-	{
-		int i=0,j=0;
-		fin[2].open(config_file);
-		string temp_range;
-		string temp_port;
-		string temp_join_time;
-		string temp_leave_time;
-		string join_hour;
-		string join_min;
-		string leave_hour;
-		string leave_min;
-		string line;
-		string temp_upper_range;
-		string temp_lower_range;
-		int upper_range;
-		int lower_range;
-		int temp_join_hour;
-		int temp_join_min;
-		int temp_leave_hour;
-		int temp_leave_min;
-
-		while (getline(fin[2], line))
+		int config_reader()
 		{
-			istringstream ss(line);
-			char *cstr = new char[line.length() + 1];
-			strcpy(cstr, line.c_str());
-			char *token = std::strtok(cstr, ":");
+			int i=0,j=0;
+			fin[2].open(config_file);
+			string temp_range;
+			string temp_port;
+			string temp_join_time;
+			string temp_leave_time;
+			string join_hour;
+			string join_min;
+			string leave_hour;
+			string leave_min;
+			string line;
+			string temp_upper_range;
+			string temp_lower_range;
+			int upper_range;
+			int lower_range;
+			int temp_join_hour;
+			int temp_join_min;
+			int temp_leave_hour;
+			int temp_leave_min;
+
+			while (getline(fin[2], line))
+			{
+				istringstream ss(line);
+				char *cstr = new char[line.length() + 1];
+				strcpy(cstr, line.c_str());
+				char *token = strtok(cstr, ":");
 
 			while (token != NULL)												//Read splitting message and full time
 			{
@@ -120,13 +124,13 @@ public:
 				{
 					//cerr<<token<<endl;
 					temp_range = token;
-					token = std::strtok(NULL, ":");
+					token = strtok(NULL, ":");
 				}
 				if(i==1)
 				{
 					//cerr<<token<<endl;
 					temp_port = token;
-					token = std::strtok(NULL, ":");
+					token = strtok(NULL, ":");
 
 				}
 				if(i==2)
@@ -144,7 +148,7 @@ public:
 					else
 						join_min=token;
 
-					token = std::strtok(NULL, ":");
+					token = strtok(NULL, ":");
 					//cerr<<temp_join_time<<endl;
 				}
 				j=0;
@@ -161,7 +165,7 @@ public:
 					else
 						leave_min=token;
 
-					token = std::strtok(NULL, ":");
+					token = strtok(NULL, ":");
 
 				}
 			}
@@ -169,12 +173,12 @@ public:
 		}
 		char *temp = new char[temp_range.length() + 1];
 		strcpy(temp,temp_range.c_str());
-		char *token1 = std::strtok(temp, "-");
+		char *token1 = strtok(temp, "-");
 		temp_upper_range=token1;
 		while (token1 != NULL)
 		{
 			temp_lower_range = token1;
-			token1 = std::strtok(NULL, ":");							//splitting mins and secs from full time
+			token1 = strtok(NULL, ":");							//splitting mins and secs from full time
 		}
 
   	//------------------------------------
@@ -196,6 +200,8 @@ public:
 		return 0;
 	}
 
-void socket_creator();
+	void socket_creator();
+	void sender();
+	void receiver();
 
 }client;

@@ -24,4 +24,6 @@ int main(int argc, char** argv)
   client.input_reader();
   client.config_reader();
   client.socket_creator();
+  client.sender();
+  client.receiver();
 }
