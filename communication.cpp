@@ -18,6 +18,8 @@ typedef map<string,struct sockaddr_in> channel_type;
 struct sockaddr_in my_sock;
 struct sockaddr_in next_sock;
 
+//ofstream fout[4000];
+
 
 void client_process::socket_creator()
 {
@@ -27,7 +29,7 @@ void client_process::socket_creator()
 
 	if (s < 0)
 	{
-		perror ("socket() failed\n");
+		//perror ("socket() failed\n");
 		exit(1);
 	}
 	cerr<<endl<<"socket created";
@@ -47,23 +49,33 @@ void client_process::socket_creator()
 	}	
 }
 
-void client_process::sender()
+
+
+//fout=new int(client.port);
+ofstream fout;
+
+
+void client_process::sender(string var1)
 {
 	
 	ssize_t bytes;
   	size_t len;
 	char msg_comm[1000];
-	strcpy(msg_comm, msg[1].c_str());
+	strcpy(msg_comm, var1.c_str());
 
 	//len= msg[1].length();
 	//cout<<msg[1]<<endl;
 	next_sock.sin_family = AF_INET;
-    next_sock.sin_port = htons(3452);
-	bytes = sendto(s, msg_comm, 100, 0, (struct sockaddr*)&next_sock, sizeof next_sock);
-	cerr<<"sent " << bytes << endl;
-}
+	if(port!=3557)
+    	next_sock.sin_port = htons(port+2);
+    else
+    	next_sock.sin_port = htons(3553);
 
-void client_process::receiver()
+	bytes = sendto(s, msg_comm, 100, 0, (struct sockaddr*)&next_sock, sizeof next_sock);
+	//cerr<<"sent " << port<<" "<<msg_comm << endl;
+}
+/*
+void client_process::receiver_old()
 {
 	int rc;
 	int k=0;
@@ -72,7 +84,7 @@ void client_process::receiver()
 	ssize_t bytes;
 	void *data;
 	size_t len;
-	char msg[100];
+	char msg_recv[100];
 	socklen_t fromlen;
 	fromlen = sizeof(my_sock);
 
@@ -80,12 +92,12 @@ void client_process::receiver()
 	{
 		
 		fd_set fds;
-		FD_ZERO(&fds);
+		FD_ZERO(&fds); 
 		FD_SET(s, &fds);
 		
 		//cout << "before select" << endl;
 
-		rc = select(s+1, &fds, NULL, NULL, &tv);
+		rc = select(s+1, &fds, NULL, NULL, NULL);
 		//cout << "after select" << endl;
 		
 
@@ -96,18 +108,44 @@ void client_process::receiver()
             getchar();
 		}
 		else
+		{
+			int socket_data = 0;
 
 			if (FD_ISSET(s,&fds))
 			{
 
 
-				cout<< "Rc: " << rc<<endl;
-				bytes = recvfrom(s, msg, sizeof(msg), 0, (struct sockaddr*)&my_sock, &fromlen);
-				cerr<<"yooo " << bytes<<endl;
-				cout<<msg;
+				cout<< "from" << port<<" "<<msg_recv<<endl;
+				bytes = recvfrom(s, msg_recv, sizeof(msg), 0, (struct sockaddr*)&my_sock, &fromlen);
+				//cerr<<"yooo " << bytes<<endl;
+				socket_data = 1;
+				
+				
 			}
+		}
 
-		k++;
+		cout<<"broke"<<endl;
 
 	}
+}
+*/
+
+void client_process::receiver()
+{
+	
+	
+	int k=0;
+	struct timeval tv;
+	tv.tv_sec=2;
+	ssize_t bytes;
+	void *data;
+	size_t len;
+	char msg_recv[100];
+	socklen_t fromlen;
+	fromlen = sizeof(my_sock);
+
+	bytes = recvfrom(s, msg_recv, sizeof(msg), 0, (struct sockaddr*)&my_sock, &fromlen);
+	fout<< "from " << port<<" "<<msg_recv<<endl;
+	//cerr<<"yooo " << bytes<<endl;
+	
 }

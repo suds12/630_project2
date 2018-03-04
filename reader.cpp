@@ -18,7 +18,6 @@ typedef map<string,struct sockaddr_in> channel_type;
 struct sockaddr_in server;
 struct sockaddr_in recv_client;
 ifstream fin[5];
-ofstream fout[5];
 
 class client_process
 {
@@ -200,8 +199,13 @@ public:
 		return 0;
 	}
 
+	void initializer();
 	void socket_creator();
-	void sender();
+	void sender(string var1);
 	void receiver();
+	//void receiver_old();
+	void send_probe_request();
+
+
 
 }client;
