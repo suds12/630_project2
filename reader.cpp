@@ -26,14 +26,18 @@ public:
 	int port;
 	int next_id;
 	int prev_id;
+	int state;
 	int message_time[10];
 	string msg[10];
 	int join_time;
 	int leave_time;
+	int upper_range;
+	int lower_range;
 	int range;
 	int s;
 	string input_file;
 	string config_file;
+	string received_msg;
 
 	int input_reader()
 	{
@@ -103,8 +107,6 @@ public:
 			string line;
 			string temp_upper_range;
 			string temp_lower_range;
-			int upper_range;
-			int lower_range;
 			int temp_join_hour;
 			int temp_join_min;
 			int temp_leave_hour;
@@ -201,10 +203,11 @@ public:
 
 	void initializer();
 	void socket_creator();
-	void sender(string var1);
-	void receiver();
+	void sender(string var1,int var2);
+	string receiver();
 	//void receiver_old();
-	void send_probe_request();
+	void send_probe_request(int p);
+	void send_probe_ack(int p);
 
 
 

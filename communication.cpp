@@ -55,7 +55,7 @@ void client_process::socket_creator()
 ofstream fout;
 
 
-void client_process::sender(string var1)
+void client_process::sender(string var1, int var2)
 {
 	
 	ssize_t bytes;
@@ -66,10 +66,7 @@ void client_process::sender(string var1)
 	//len= msg[1].length();
 	//cout<<msg[1]<<endl;
 	next_sock.sin_family = AF_INET;
-	if(port!=3557)
-    	next_sock.sin_port = htons(port+2);
-    else
-    	next_sock.sin_port = htons(3553);
+    next_sock.sin_port = htons(var2);
 
 	bytes = sendto(s, msg_comm, 100, 0, (struct sockaddr*)&next_sock, sizeof next_sock);
 	//cerr<<"sent " << port<<" "<<msg_comm << endl;
@@ -130,7 +127,7 @@ void client_process::receiver_old()
 }
 */
 
-void client_process::receiver()
+string client_process::receiver()
 {
 	
 	
@@ -145,7 +142,8 @@ void client_process::receiver()
 	fromlen = sizeof(my_sock);
 
 	bytes = recvfrom(s, msg_recv, sizeof(msg), 0, (struct sockaddr*)&my_sock, &fromlen);
-	fout<< "from " << port<<" "<<msg_recv<<endl;
+	//fout<< "from " << port<<" "<<msg_recv<<endl;
 	//cerr<<"yooo " << bytes<<endl;
+	return msg_recv;
 	
 }

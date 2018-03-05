@@ -18,16 +18,25 @@ using namespace std;
 
 
 
-void client_process::send_probe_request()
+void client_process::send_probe_request(int p)
 {
 	int i;
 	string probe;
-	cout<<"done"<<endl;
+	//cout<<"done"<<endl;
 	probe="probe "+to_string(port);
-	cout<<probe<<endl;
-	for(i=0;i<range;i++)
-	{
-		sender(probe);
-	}
+	sender(probe,p);
+	//cout<<"sent probe to "<<p<<endl;
+
+}
+
+void client_process::send_probe_ack(int p)
+{
+	int i;
+	string ack;
+	//cout<<"done"<<endl;
+	ack="ack "+to_string(port);
+	sender(ack,p);
+	cout<<port<<" sent ack to "<<p<<endl;
+	
 }
 
