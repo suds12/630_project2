@@ -36,7 +36,7 @@ void client_process::send_probe_ack(int p)
 	//cout<<"done"<<endl;
 	ack="ack "+to_string(port);
 	sender(ack,p);
-	cout<<port<<" sent ack to "<<p<<endl;
+	
 	
 }
 
