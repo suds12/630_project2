@@ -189,6 +189,14 @@ int main(int argc, char** argv)
 							client.prev_id=probe_from;
 							
 							client.send_probe_ack(client.prev_id);
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+							end = std::chrono::high_resolution_clock::now();
+							elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - display_time);
+							elapsed_min=elapsed.count()/60;
+							elapsed_sec=elapsed.count()%60;
+
+							fout<<elapsed_min<<":"<<elapsed_sec<<" previous hop is changed to client "<<client.prev_id<<endl;
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 							cout<<client.port<<" sent ack to "<<client.prev_id<<" in "<<l<<endl;
 						}
 					}
@@ -223,6 +231,14 @@ int main(int argc, char** argv)
 							client.prev_id=probe_from;
 							
 							client.send_probe_ack(client.prev_id);
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+							end = std::chrono::high_resolution_clock::now();
+							elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - display_time);
+							elapsed_min=elapsed.count()/60;
+							elapsed_sec=elapsed.count()%60;
+
+							fout<<elapsed_min<<":"<<elapsed_sec<<" previous hop is changed to client "<<client.prev_id<<endl;
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 							cout<<client.port<<" sent ack to "<<client.prev_id<<" in "<<l<<endl;
 						}
 					}
@@ -335,6 +351,14 @@ int main(int argc, char** argv)
 							client.prev_id=probe_from;
 							
 							client.send_probe_ack(client.prev_id);
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+							end = std::chrono::high_resolution_clock::now();
+							elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - display_time);
+							elapsed_min=elapsed.count()/60;
+							elapsed_sec=elapsed.count()%60;
+
+							fout<<elapsed_min<<":"<<elapsed_sec<<" previous hop is changed to client "<<client.prev_id<<endl;
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 							cout<<client.port<<" sent ack to "<<client.prev_id<<" in "<<l<<endl;
 						}
 					}
@@ -374,7 +398,7 @@ int main(int argc, char** argv)
 								elapsed_min=elapsed.count()/60;
 								elapsed_sec=elapsed.count()%60;
 
-								fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<post_msg<<" was sent "<<endl;
+								fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<client.msg[client.bookmark]<<" was sent "<<endl;
 								//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 								
 								client.bookmark++;
@@ -434,6 +458,14 @@ int main(int argc, char** argv)
 							client.prev_id=probe_from;
 							
 							client.send_probe_ack(client.prev_id);
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+							end = std::chrono::high_resolution_clock::now();
+							elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - display_time);
+							elapsed_min=elapsed.count()/60;
+							elapsed_sec=elapsed.count()%60;
+
+							fout<<elapsed_min<<":"<<elapsed_sec<<" previous hop is changed to client "<<client.prev_id<<endl;
+							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 							cout<<client.port<<" sent ack to "<<client.prev_id<<" in "<<l<<endl;
 						}
 					}
@@ -475,7 +507,7 @@ int main(int argc, char** argv)
 								elapsed_min=elapsed.count()/60;
 								elapsed_sec=elapsed.count()%60;
 
-								fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<post_msg<<" was sent "<<endl;
+								fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<client.msg[client.bookmark]<<" was sent "<<endl;
 								//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 								if(client.num_messages != client.bookmark -1)
 								{
@@ -529,7 +561,7 @@ int main(int argc, char** argv)
 							elapsed_min=elapsed.count()/60;
 							elapsed_sec=elapsed.count()%60;
 
-							fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<post_msg<<" from client "<<client.pid<<" was relayed  "<<endl;
+							fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<word[2]<<" from client "<<client.pid<<" was relayed  "<<endl;
 							//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 						}
 						else
@@ -565,7 +597,7 @@ int main(int argc, char** argv)
 									elapsed_min=elapsed.count()/60;
 									elapsed_sec=elapsed.count()%60;
 
-									fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<post_msg<<" was sent "<<endl;
+									fout<<elapsed_min<<":"<<elapsed_sec<<" post "<<client.msg[client.bookmark]<<" was sent "<<endl;
 									//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 									if(client.num_messages != client.bookmark -1)
 									{
@@ -651,7 +683,15 @@ int main(int argc, char** argv)
 				{
 					if(rtr_time>2000)
 					{
-						cout<<client.port<<" Ring broke"<<endl;
+						//cout<<client.port<<" Ring broke"<<endl;
+						//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+						end = std::chrono::high_resolution_clock::now();
+						elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - display_time);
+						elapsed_min=elapsed.count()/60;
+						elapsed_sec=elapsed.count()%60;
+
+						fout<<elapsed_min<<":"<<elapsed_sec<<" ring is broken  "<<endl;
+						//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 						client.init();
 					}
 					

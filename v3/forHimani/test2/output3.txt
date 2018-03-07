@@ -1,27 +1,22 @@
-0:5 next hop is changed to client 3452
-0:5 started election, send election message to client 3452
-0:5 leader selected 
-0:5 new token generated 820
-0:5 token 820 was sent to client 3452
-0:5 token 820 was received 
-0:20 post post1::3452::three foo from client 3452 was relayed  
-0:21 post post1::3452::three foo from client 3452 was relayed  
-0:21 post post1::3453::three foo was sent 
-0:21 post  was delivered to all successfully  
-0:21 post post1::3453:: was sent 
-0:21 post  was delivered to all successfully  
-0:28 next hop is changed to client 3454
-0:28 started election, send election message to client 3454
-0:29 relayed election message, leader: client 3454
-0:29 post post1::3454::three foo from client 3454 was relayed  
-0:29 post post1::3454::three foo from client 3454 was relayed  
-0:29 post post1::3451::three foo from client 3451 was relayed  
-0:29 post post1::3451::three foo from client 3451 was relayed  
-0:29 post post1::3452::three foo from client 3452 was relayed  
-0:29 post post1::3452::three foo from client 3452 was relayed  
-0:29 token 820 was received 
-0:29 post post1::3453::three foo was sent 
-0:29 post  was delivered to all successfully  
-0:29 post post1::3453:: was sent 
-0:29 post  was delivered to all successfully  
-0:29 token 820 was sent to client 3454
+0:2 previous hop is changed to client 3452
+0:2 next hop is changed to client 3454
+0:2 started election, send election message to client 3454
+0:2 relayed election message, replaced leader 3453
+0:4 ring is broken  
+0:4 next hop is changed to client 3454
+0:4 started election, send election message to client 3454
+0:4 previous hop is changed to client 3452
+0:4 relayed election message, replaced leader 3453
+0:4 relayed election message, leader: client 3454
+0:4 token 0 was received 
+0:4 token 0 was sent to client 3454
+0:21 post three foo was sent 
+0:21 post two foo was delivered to all successfully  
+0:21 post  was sent 
+0:21 post two foo was delivered to all successfully  
+0:21 post two foo from client 3454 was relayed  
+0:21 post two foo from client 3454 was relayed  
+0:21 post two foo from client 3452 was relayed  
+0:21 post  from client 3452 was relayed  
+0:21 post  from client 3451 was relayed  
+0:21 post  from client 3451 was relayed  

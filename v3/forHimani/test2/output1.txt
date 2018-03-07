@@ -1,29 +1,17 @@
 0:2 next hop is changed to client 3452
 0:2 started election, send election message to client 3452
+0:4 previous hop is changed to client 3454
 0:4 relayed election message, leader: client 3454
-0:7 next hop is changed to client 3454
-0:7 started election, send election message to client 3454
-0:7 relayed election message, leader: client 3454
-0:7 token 0 was received 
-0:7 token 0 was sent to client 3454
-0:21 post post1::3451::one foo was sent 
-0:21 post four foo was delivered to all successfully  
-0:21 post post1::3451:: was sent 
-0:21 post four foo was delivered to all successfully  
-0:21 post post1::3454:: from client 3454 was relayed  
-0:21 post post1::3454:: from client 3454 was relayed  
-0:28 next hop is changed to client 3452
-0:28 started election, send election message to client 3452
-0:29 relayed election message, leader: client 3454
-0:29 post post1::3454::one foo from client 3454 was relayed  
-0:29 post post1::3454::one foo from client 3454 was relayed  
-0:29 token 0 was received 
-0:29 post post1::3451::one foo was sent 
-0:29 post  was delivered to all successfully  
-0:29 post post1::3451:: was sent 
-0:29 post  was delivered to all successfully  
-0:29 token 0 was sent to client 3452
-0:29 post post1::3452:: from client 3452 was relayed  
-0:29 post post1::3452:: from client 3452 was relayed  
-0:29 post post1::3453:: from client 3453 was relayed  
-0:29 post post1::3453:: from client 3453 was relayed  
+0:4 token 0 was received 
+0:4 token 0 was sent to client 3452
+0:20 post four foo from client 3453 was relayed  
+0:20 post four foo from client 3453 was relayed  
+0:20 post four foo from client 3454 was relayed  
+0:20 post  from client 3454 was relayed  
+0:20 post  from client 3452 was relayed  
+0:20 post  from client 3452 was relayed  
+0:21 post one foo was sent 
+0:21 post  was delivered to all successfully  
+0:21 post  was sent 
+0:21 post  was delivered to all successfully  
+0:42 ring is broken  
