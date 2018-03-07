@@ -46,3 +46,11 @@ void client_process::send_post(int var1)
 		bookmark++;
 	}
 }
+
+void client_process::display_time()
+{
+	clock_t time_now=clock();
+	double time_since=double(time_now - begin)/CLOCKS_PER_SEC;
+	cout<<time_now;
+
+}

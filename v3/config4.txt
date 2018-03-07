@@ -1,4 +1,4 @@
 client_port: 3551-3561
 my_port: 3559
 join_time: 0:00
-leave_time: 8:44
+leave_time: 0:04

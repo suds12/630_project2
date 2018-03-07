@@ -29,6 +29,7 @@ int main(int argc, char** argv)
 
 	int rc;
 
+	clock_t display_time=clock();
 	client.begin = clock();	//start clock
 
 	client.input_file=argv[1];
@@ -41,19 +42,27 @@ int main(int argc, char** argv)
 	std::this_thread::sleep_for(std::chrono::seconds(client.join_time));
 	client.socket_creator(); 
 	cout<<client.port<<" awake"<<endl;
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	cout<<client.port<<" "<<(double)(clock()-display_time)/CLOCKS_PER_SEC;
+	cout<<":woke up "<<endl;
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	client.init();
 	int l=0;
 
+
+
 	client.send_probe_request(p+1);
+	/*
 	if(client.port==3559)
 	{
 		std::this_thread::sleep_for(std::chrono::seconds(8));
 		client.send_probe_request(3553);
 		cout<<client.port<<" sent probe"<<endl;
 	}
+	*/
 	
-
+	client.track_time = clock();
 	while(1)
 	{
 		fd_set fds;
@@ -90,7 +99,13 @@ int main(int argc, char** argv)
 							tk = strtok(NULL, "::");
 						}
 						client.next_id=stoi(temp);
-						cout<<client.port<<" got ack from "<<client.next_id<<" in "<<l<<endl;
+
+						//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+						cout<<client.port<<" ";
+						client.display_time();
+						cout<<":next hop is changed to "<<client.next_id<<endl;
+						//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+						//cout<<client.port<<" got ack from "<<client.next_id<<" in "<<l<<endl;
 						client.state=2;
 						client.send_candidate(client.next_id);
 						cout<<client.port<<" sent candidate to "<<client.next_id<<" in "<<l<<endl;
@@ -246,6 +261,10 @@ int main(int argc, char** argv)
 								string post_msg="post1::"+to_string(client.port)+"::"+client.msg[client.bookmark];
 								cout<<client.port<<" posting "<<client.msg[client.bookmark]<<endl;
 								client.sender(post_msg, client.next_id);
+								if(client.num_messages == client.bookmark -1)
+								{
+									client.state=5;
+								}
 								client.bookmark++;
 							}
 							else
@@ -305,6 +324,10 @@ int main(int argc, char** argv)
 								string post_msg="post1::"+to_string(client.port)+"::"+client.msg[client.bookmark];
 								cout<<client.port<<" posting "<<client.msg[client.bookmark]<<endl;
 								client.sender(post_msg, client.next_id);
+								if(client.num_messages == client.bookmark -1)
+								{
+									client.state=5;
+								}
 								client.bookmark++;
 							}
 							else
@@ -347,6 +370,10 @@ int main(int argc, char** argv)
 									string post_msg="post1::"+to_string(client.port)+"::"+client.msg[client.bookmark];
 									cout<<client.port<<" posting "<<client.msg[client.bookmark]<<endl;
 									client.sender(post_msg, client.next_id);
+									if(client.num_messages == client.bookmark -1)
+									{
+										client.state=5;
+									}
 									client.bookmark++;
 								}
 								else
@@ -359,9 +386,58 @@ int main(int argc, char** argv)
 
 
 				}//*****************************end of state 4*****************************
+				if(client.state==5)
+				{
+					cout<<client.port<<" says BYEEE"<<endl;
+					break;
+				}
 				
+			}//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& end of isset&&&&&&&&&&&&&&&&&&&&&&&&&&
+			else
+			{
+				clock_t current_time = clock(); 
+				double elapsed_time=double(current_time - client.begin)/CLOCKS_PER_SEC;
+				double rtr_time=double(current_time - client.track_time)/CLOCKS_PER_SEC;
+				//cout<<"elapsed_time "<<rtr_time<<endl;
+
+				if(elapsed_time>client.leave_time)
+				{
+					client.state=5;
+					continue;
+				}
+				if(client.state==1)
+				{
+					if(rtr_time>0.6)
+					{
+						if(client.next_probe==client.lower_range)
+						{
+							client.next_probe=client.upper_range-1;
+						}
+						else if(client.next_probe==client.port-1)
+						{
+							cout<<client.port<<" No one in the ring"<<endl;
+						}
+						
+						client.next_probe++;
+						client.send_probe_request(client.next_probe);
+						cout<<client.port<<" sent probe to "<<client.next_probe<<endl;
+						client.track_time=current_time;
+
+					}
+				}
+
+				if(client.state==2 || client.state==3 || client.state==4)
+				{
+					if(rtr_time>2)
+					{
+						cout<<client.port<<" Ring broke"<<endl;
+						client.init();
+					}
+					
+				}
+
 			}
-		
+			
 		}
 		//l++;
 

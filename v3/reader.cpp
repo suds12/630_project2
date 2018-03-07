@@ -32,6 +32,8 @@ public:
 	int probe_permission;
 	int seqno;
 	int leader;
+	int num_messages;
+	int next_probe;
 	int message_time[10];
 	string msg[10];
 	int join_time;
@@ -45,6 +47,8 @@ public:
 	int token;
 	int bookmark;
 	clock_t begin;
+	clock_t track_time;
+	clock_t tat;
 	string input_file;
 	string config_file;
 	string received_msg;
@@ -94,6 +98,7 @@ public:
 			i++;
 
 		}
+		num_messages=i;
 
 		for(i=0;i<4;i++)
 		{
@@ -212,6 +217,7 @@ public:
 		return 0;
 	}
 
+
 	void initializer();
 	void socket_creator();
 	void sender(string var1,int var2);
@@ -226,6 +232,7 @@ public:
 	void gen_token();
 	void send_token(int var1);
 	void send_post(int var1);
+	void display_time();
 	void init();
 
 
