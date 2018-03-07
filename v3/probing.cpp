@@ -47,6 +47,9 @@ void client_process::init()
 	prev_id=0;
 	next_id=0;
 	probe_permission=1;
+	bookmark=0;
+	pid=0;
+	pass_pid=0;
 
 }
 

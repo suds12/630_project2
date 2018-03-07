@@ -39,7 +39,12 @@ public:
 	int upper_range;
 	int lower_range;
 	int range;
+	int pid;
+	int pass_pid;
 	int s;
+	int token;
+	int bookmark;
+	clock_t begin;
 	string input_file;
 	string config_file;
 	string received_msg;
@@ -218,6 +223,9 @@ public:
 	void pass_candidate(int dest, int proposed, int seq);
 	void send_leader(int dest);
 	void pass_leader(int dest, int leader);
+	void gen_token();
+	void send_token(int var1);
+	void send_post(int var1);
 	void init();
 
 
