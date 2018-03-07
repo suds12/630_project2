@@ -331,7 +331,7 @@ int main(int argc, char** argv)
 
 						if(client.port != client.pid)
 						{
-							string post_msg="post1::"+to_string(client.port)+"::"+client.msg[client.bookmark];
+							string post_msg="post1::"+to_string(client.pid)+"::"+client.msg[client.bookmark];
 							cout<<client.port<<" passing message :"<<post_msg<<endl;
 							client.sender(post_msg, client.next_id);
 						}
