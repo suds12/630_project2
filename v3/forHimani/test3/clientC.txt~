@@ -1,0 +1,4 @@
+client_port: 3450-3470
+my_port: 3453
+join_time: 0:5
+leave_time: 0:30

@@ -1,0 +1,12 @@
+0:15 next hop is changed to client 3455
+0:15 started election, send election message to client 3455
+1:23 relayed election message, replaced leader 3453
+1:23 relayed election message, leader: client 3459
+1:23 post post1::3459:: from client 3459 was relayed  
+1:23 post post1::3459:: from client 3459 was relayed  
+2:10 next hop is changed to client 3455
+2:10 started election, send election message to client 3455
+2:11 relayed election message, replaced leader 3453
+2:51 relayed election message, leader: client 3455
+2:51 post post1::3455:: from client 3455 was relayed  
+2:51 post post1::3455:: from client 3455 was relayed  

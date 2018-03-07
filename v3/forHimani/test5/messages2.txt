@@ -1,0 +1,5 @@
+0:21	Hello, two.
+0:26    How is the weather?
+0:31    Yes, that does sound great.
+0:39    rainy
+0:42    very

@@ -1,0 +1,30 @@
+0:2 next hop is changed to client 3453
+0:2 started election, send election message to client 3453
+0:2 relayed election message, replaced leader 3452
+0:4 next hop is changed to client 3453
+0:4 started election, send election message to client 3453
+0:4 relayed election message, leader: client 3454
+0:5 relayed election message, leader: client 3453
+0:5 token 0 was received 
+0:5 token 0 was sent to client 3453
+0:21 post post1::3452::two foo was sent 
+0:21 post three foo was delivered to all successfully  
+0:21 post post1::3452:: was sent 
+0:21 post three foo was delivered to all successfully  
+0:21 post post1::3453:: from client 3453 was relayed  
+0:21 post post1::3453:: from client 3453 was relayed  
+0:28 next hop is changed to client 3453
+0:28 started election, send election message to client 3453
+0:29 relayed election message, leader: client 3454
+0:29 post post1::3454::two foo from client 3454 was relayed  
+0:29 post post1::3454::two foo from client 3454 was relayed  
+0:29 post post1::3451::two foo from client 3451 was relayed  
+0:29 post post1::3451::two foo from client 3451 was relayed  
+0:29 token 0 was received 
+0:29 post post1::3452::two foo was sent 
+0:29 post  was delivered to all successfully  
+0:29 post post1::3452:: was sent 
+0:29 post  was delivered to all successfully  
+0:29 token 0 was sent to client 3453
+0:29 post post1::3453:: from client 3453 was relayed  
+0:29 post post1::3453:: from client 3453 was relayed  

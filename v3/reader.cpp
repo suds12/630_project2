@@ -45,13 +45,18 @@ public:
 	int pass_pid;
 	int s;
 	int token;
+	int token_id;
 	int bookmark;
-	clock_t begin;
-	clock_t track_time;
+	std::chrono::high_resolution_clock::time_point begin;
+	std::chrono::high_resolution_clock::time_point track_time;
 	clock_t tat;
 	string input_file;
 	string config_file;
+	string output_file;
 	string received_msg;
+	int token_sent;
+	int token_received;
+
 
 
 	int input_reader()
@@ -99,6 +104,7 @@ public:
 
 		}
 		num_messages=i;
+		cout << num_messages << endl;
 
 		for(i=0;i<4;i++)
 		{

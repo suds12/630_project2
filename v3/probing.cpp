@@ -50,7 +50,9 @@ void client_process::init()
 	bookmark=0;
 	pid=0;
 	pass_pid=0;
-	next_probe=port+1;
+	next_probe=port;
+	token_sent=0;
+	token_received=0;
 
 }
 
